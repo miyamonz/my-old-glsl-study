@@ -1,0 +1,16 @@
+{
+  "name": "glsl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --server --files *",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "backpack-core": "^0.4.3",
+    "glslify": "^6.1.0"
+  }
+}
