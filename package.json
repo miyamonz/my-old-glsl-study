@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "backpack-core": "^0.4.3",
+    "file-loader": "^1.1.5",
     "glslify": "^6.1.0"
-  }
+  },
+  "dependencies": {}
 }
