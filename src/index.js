@@ -3,7 +3,7 @@ import vert from "./shader.vert"
 
 window.onload = function(){
   // 変数宣言
-  var a, c, d, e, f, g, h, p, t, u, v, x, y, z;
+  var a, c, e, f, g, h, p, t, u, v, x, y;
 
   // ESCキーで描画を止めるためのイベントハンドラ
   window.addEventListener('keydown', k, true);
@@ -11,7 +11,6 @@ window.onload = function(){
 
   c = document.querySelector('#c');
   g = c.getContext('webgl');
-
   p = g.createProgram();
 
   // シェーダ生成関数
@@ -37,26 +36,21 @@ window.onload = function(){
   g.enableVertexAttribArray(a);
   g.vertexAttribPointer(a, 3, g.FLOAT, false, 0, 0);
   g.clearColor(0, 0, 0, 1);
-  z = new Date().getTime();
 
   // 無名関数でメインルーチンを実行
-  function update() {
-    // シェーダのリンクに失敗していたら実行しない
-    if(!e){return;}
+  function update(milli) {
+    if(!e){return;} // シェーダのリンクに失敗していたら実行しない
 
     // ビューポートを動的に指定する
     c.width = x = window.innerWidth;
     c.height = y = window.innerHeight;
     g.viewport(0, 0, x, y);
 
-    // 時間の経過を調べる
-    d = (new Date().getTime() - z) * 0.001;
-
     // フレームバッファをクリア
     g.clear(g.COLOR_BUFFER_BIT);
 
     // uniform変数をプッシュ
-    g.uniform1f(u.time, d);
+    g.uniform1f(u.time, milli * 0.001);
     g.uniform2fv(u.resolution, [x, y]);
 
     // プリミティブのレンダリング
@@ -66,9 +60,7 @@ window.onload = function(){
     // 再起
     requestAnimationFrame(update);
   };
-
   update();
-
 };
 
 
