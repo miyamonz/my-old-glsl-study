@@ -6,8 +6,8 @@ window.onload = function(){
   window.addEventListener('keydown', k, true);
   function k(h){e = (h.keyCode !== 27);}
 
-  const ccc = document.querySelector('#c');
-  const ctx = c.getContext('webgl');
+  const ccc = document.querySelector('#canvas');
+  const ctx = ccc.getContext('webgl');
   const ppp = ctx.createProgram();
 
   // シェーダ生成関数
@@ -39,16 +39,16 @@ window.onload = function(){
     if(!eee){return;} // シェーダのリンクに失敗していたら実行しない
 
     // ビューポートを動的に指定する
-    c.width  = window.innerWidth;
-    c.height = window.innerHeight;
-    ctx.viewport(0, 0, c.width, c.height);
+    ccc.width  = window.innerWidth;
+    ccc.height = window.innerHeight;
+    ctx.viewport(0, 0, ccc.width, ccc.height);
 
     // フレームバッファをクリア
     ctx.clear(ctx.COLOR_BUFFER_BIT);
 
     // uniform変数をプッシュ
     ctx.uniform1f(uuu.time, milli * 0.001);
-    ctx.uniform2fv(uuu.resolution, [c.width, c.height]);
+    ctx.uniform2fv(uuu.resolution, [ccc.width, ccc.height]);
 
     // プリミティブのレンダリング
     ctx.drawArrays(ctx.TRIANGLE_STRIP, 0, 4);
