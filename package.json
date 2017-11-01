@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack -w & browser-sync start --server public --files *" ,
+    "start": "webpack -w & browser-sync start --server public --files *",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,5 +15,7 @@
     "raw-loader": "^0.5.1",
     "webpack": "^3.7.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "vedajs": "^0.1.0"
+  }
 }
