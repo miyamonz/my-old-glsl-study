@@ -34,7 +34,6 @@ window.onload = function(){
   ctx.vertexAttribPointer(atr, 3, ctx.FLOAT, false, 0, 0);
   ctx.clearColor(0, 0, 0, 1);
 
-  // 無名関数でメインルーチンを実行
   function update(milli) {
     if(!isLinked){return;} // シェーダのリンクに失敗していたら実行しない
 
