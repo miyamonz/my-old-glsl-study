@@ -3,8 +3,6 @@ import vert from "./shader.vert"
 
 window.onload = function(){
   // ESCキーで描画を止めるためのイベントハンドラ
-  window.addEventListener('keydown', k, true);
-  function k(h){e = (h.keyCode !== 27);}
 
   const cvs = document.querySelector('#canvas');
   const ctx = cvs.getContext('webgl');
@@ -12,7 +10,7 @@ window.onload = function(){
 
   // シェーダ生成関数
   const hhh = function(i, j){
-    k = ctx.createShader(ctx.VERTEX_SHADER - i);
+    const k = ctx.createShader(ctx.VERTEX_SHADER - i);
     ctx.shaderSource(k, j);
     ctx.compileShader(k);
     ctx.attachShader(pgm, k);
@@ -34,8 +32,11 @@ window.onload = function(){
   ctx.vertexAttribPointer(atr, 3, ctx.FLOAT, false, 0, 0);
   ctx.clearColor(0, 0, 0, 1);
 
+  let stop;
+  window.addEventListener('keydown',  e => { if( e.keyCode === 27 ) stop = !stop }, true);
+
   function update(milli) {
-    if(!isLinked){return;} // シェーダのリンクに失敗していたら実行しない
+    if(!isLinked || stop){return;} // シェーダのリンクに失敗していたら実行しない
 
     // ビューポートを動的に指定する
     cvs.width  = window.innerWidth;
