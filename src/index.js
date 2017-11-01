@@ -2,60 +2,57 @@ import frag from "./shader.frag"
 import vert from "./shader.vert"
 
 window.onload = function(){
-  // 変数宣言
-  var a, c, e, f, g, h, p, t, u, v, x, y;
-
   // ESCキーで描画を止めるためのイベントハンドラ
   window.addEventListener('keydown', k, true);
   function k(h){e = (h.keyCode !== 27);}
 
-  c = document.querySelector('#c');
-  g = c.getContext('webgl');
-  p = g.createProgram();
+  const ccc = document.querySelector('#c');
+  const ctx = c.getContext('webgl');
+  const ppp = ctx.createProgram();
 
   // シェーダ生成関数
-  h = function(i, j){
-    k = g.createShader(g.VERTEX_SHADER - i);
-    g.shaderSource(k, j);
-    g.compileShader(k);
-    g.attachShader(p, k);
-    return g.getShaderInfoLog(k);
+  const hhh = function(i, j){
+    k = ctx.createShader(ctx.VERTEX_SHADER - i);
+    ctx.shaderSource(k, j);
+    ctx.compileShader(k);
+    ctx.attachShader(ppp, k);
+    return ctx.getShaderInfoLog(k);
   }
 
-  if(!h(0, vert) && !h(1, frag)){g.linkProgram(p);}
+  if(!hhh(0, vert) && !hhh(1, frag)){ctx.linkProgram(ppp);}
 
-  e = g.getProgramParameter(p, g.LINK_STATUS);
-  g.useProgram(p);
+  const eee = ctx.getProgramParameter(ppp, ctx.LINK_STATUS);
+  ctx.useProgram(ppp);
 
-  u = {};
-  u.time = g.getUniformLocation(p, 'time');
-  u.resolution = g.getUniformLocation(p, 'resolution');
-  g.bindBuffer(g.ARRAY_BUFFER, g.createBuffer());
-  g.bufferData(g.ARRAY_BUFFER, new Float32Array([-1,1,0,-1,-1,0,1,1,0,1,-1,0]), g.STATIC_DRAW);
-  a = g.getAttribLocation(p, 'position');
-  g.enableVertexAttribArray(a);
-  g.vertexAttribPointer(a, 3, g.FLOAT, false, 0, 0);
-  g.clearColor(0, 0, 0, 1);
+  const uuu = {};
+  uuu.time = ctx.getUniformLocation(ppp, 'time');
+  uuu.resolution = ctx.getUniformLocation(ppp, 'resolution');
+  ctx.bindBuffer(ctx.ARRAY_BUFFER, ctx.createBuffer());
+  ctx.bufferData(ctx.ARRAY_BUFFER, new Float32Array([-1,1,0,-1,-1,0,1,1,0,1,-1,0]), ctx.STATIC_DRAW);
+  const aaa = ctx.getAttribLocation(ppp, 'position');
+  ctx.enableVertexAttribArray(aaa);
+  ctx.vertexAttribPointer(aaa, 3, ctx.FLOAT, false, 0, 0);
+  ctx.clearColor(0, 0, 0, 1);
 
   // 無名関数でメインルーチンを実行
   function update(milli) {
-    if(!e){return;} // シェーダのリンクに失敗していたら実行しない
+    if(!eee){return;} // シェーダのリンクに失敗していたら実行しない
 
     // ビューポートを動的に指定する
-    c.width = x = window.innerWidth;
-    c.height = y = window.innerHeight;
-    g.viewport(0, 0, x, y);
+    c.width  = window.innerWidth;
+    c.height = window.innerHeight;
+    ctx.viewport(0, 0, c.width, c.height);
 
     // フレームバッファをクリア
-    g.clear(g.COLOR_BUFFER_BIT);
+    ctx.clear(ctx.COLOR_BUFFER_BIT);
 
     // uniform変数をプッシュ
-    g.uniform1f(u.time, milli * 0.001);
-    g.uniform2fv(u.resolution, [x, y]);
+    ctx.uniform1f(uuu.time, milli * 0.001);
+    ctx.uniform2fv(uuu.resolution, [c.width, c.height]);
 
     // プリミティブのレンダリング
-    g.drawArrays(g.TRIANGLE_STRIP, 0, 4);
-    g.flush();
+    ctx.drawArrays(ctx.TRIANGLE_STRIP, 0, 4);
+    ctx.flush();
 
     // 再起
     requestAnimationFrame(update);
