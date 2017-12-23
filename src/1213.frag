@@ -36,6 +36,24 @@ vec3 getNormal(vec3 pos) {
         )); 
 }
 
+vec3 getColor(float diff) {
+  vec3 blue = vec3(0.,0.,0.8);
+
+  if(diff > 0.7)      return vec3(1.0);
+  else if(0.3 < diff && diff <= 0.7) { 
+    float t = smoothstep(0.3,0.6,diff);
+    t = pow(t,6.);
+    return (vec3(0.3) + blue) * (1.-t) + vec3(1.0) * t;
+  }
+  else if(0.0 < diff && diff <= 0.3) { 
+    float t = smoothstep(0.0,0.3,diff);
+    t = pow(t,6.);
+    return vec3(0.0) * (1.-t) + (vec3(0.3) + blue) * t;
+  }
+  else return vec3(0.2) + vec3(0.0,0.0,0.4);
+  return vec3(diff) + vec3(0.2);
+}
+
 void main() {
   vec2 r = resolution;
   vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(r.x, r.y);
@@ -46,26 +64,11 @@ void main() {
   vec3 cur = cameraPos;
   for(int i=0; i<60; i++){
     float d = dist_func(cur);
-    if( d < 0.1 ) {
+    if( d < 0.00001 ) {
       vec3 normal = getNormal(cur);
       float diff = dot(normal, rotateY(time * -3.5) * vec3(0.0,0.1,0.1) +  lightDir);
       if(diff < -0.0) continue;
-      color = vec3(diff) + vec3(0.2);
-
-      vec3 blue = vec3(0.,0.,0.8);
-
-      if(diff > 0.7)      color = vec3(1.0);
-      else if(0.3 < diff && diff <= 0.7) { 
-        float t = smoothstep(0.3,0.6,diff);
-        t = pow(t,6.);
-        color = (vec3(0.3) + blue) * (1.-t) + vec3(1.0) * t;
-      }
-      else if(0.0 < diff && diff <= 0.3) { 
-        float t = smoothstep(0.0,0.3,diff);
-        t = pow(t,6.);
-        color = vec3(0.0) * (1.-t) + (vec3(0.3) + blue) * t;
-      }
-      else color = vec3(0.2) + vec3(0.0,0.0,0.4);
+      color = getColor(diff);
       break;
     }
     cur += ray * d;
