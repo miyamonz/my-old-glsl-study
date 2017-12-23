@@ -1,5 +1,6 @@
 precision mediump float;
 uniform float time;
+uniform vec2 mouse;
 uniform vec2 resolution;
 #pragma glslify: random  = require(glsl-random)
 #pragma glslify: rotateY = require(glsl-y-rotate/rotateY)
@@ -12,7 +13,6 @@ vec3 lightDir = normalize(vec3(1.0,1.0,1.0));
 float dist_func(vec3 pos) {
     float t = 1.+(sin(time*2.)+2.)* 3.;
     vec3 o = 2.0 * vec3(cos(time*.3),sin(time*.3),.0);
-    vec2 mouse = vec2(.0,.0);
     o = vec3(mouse * 2., 0.0);
     float mr = 3.;
     vec3 q = pos - o*mr;

@@ -21,6 +21,6 @@
     "webpack": "^3.7.1"
   },
   "dependencies": {
-    "vedajs": "^0.1.0"
+    "vedajs": "^0.1.2"
   }
 }
