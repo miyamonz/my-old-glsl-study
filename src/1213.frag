@@ -7,7 +7,6 @@ uniform vec2 resolution;
 #pragma glslify: sphere  = require(./sphere)
 #pragma glslify: box     = require(./box)
 
-vec3 lightDir = normalize(vec3(1.0,1.0,1.0));
 
 float dist_func(vec3 pos) {
   float t = 1.+(sin(time*2.)+2.)* 3.;
@@ -55,18 +54,19 @@ vec3 getColor(float diff) {
 }
 
 void main() {
-  vec2 r = resolution;
-  vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(r.x, r.y);
+  vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
 
   vec3 color = vec3(0.0);
   vec3 cameraPos = vec3(0.0, 0.0, 3.0);
   vec3 ray = normalize(vec3(p, 0.0) - cameraPos);
   vec3 cur = cameraPos;
+  vec3 lightDir = normalize( vec3(1.0) + rotateY(time*-3.5) * vec3(.0, .1, .1) );
+
   for(int i=0; i<60; i++){
     float d = dist_func(cur);
     if( d < 0.00001 ) {
       vec3 normal = getNormal(cur);
-      float diff = dot(normal, rotateY(time * -3.5) * vec3(0.0,0.1,0.1) +  lightDir);
+      float diff = dot(normal, lightDir);
       if(diff < -0.0) continue;
       color = getColor(diff);
       break;
