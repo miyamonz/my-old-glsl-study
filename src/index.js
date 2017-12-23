@@ -2,8 +2,6 @@ import frag from "./shader.frag"
 import vert from "./shader.vert"
 
 window.onload = function(){
-  // ESCキーで描画を止めるためのイベントハンドラ
-
   const cvs = document.querySelector('#canvas');
   const ctx = cvs.getContext('webgl');
   const pgm = ctx.createProgram();

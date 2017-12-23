@@ -13,17 +13,17 @@ vec3 hsv(float h, float s, float v){
 
 // ジュリア集合を描くためのフラグメントシェーダ
 void main(void){
-    vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / max(resolution.x, resolution.y);
+    vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
     int j = 0;
-    vec2 x = vec2(-0.345, 0.654);     // この辺変えると……
-    vec2 y = vec2(time * 0.005, 0.0); // いろいろ変わるかも
+    vec2 x = vec2(-0.345, 0.668);
+    vec2 y = vec2(time * 0.005, 0.1);
     vec2 z = p;
     for(int i = 0; i < 360; i++){
         j++;
         if(length(z) > 2.0){break;}
         z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + x + y;
     }
-    float h = abs(mod(time * 15.0 - float(j), 360.0) / 360.0);
+    float h = abs(mod(time * 14.0 - float(j), 360.0) / 360.0);
     gl_FragColor = vec4(hsv(h, 1.0, 1.0), 1.0);
 }
 
