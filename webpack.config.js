@@ -4,13 +4,12 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     filename: "bundle.js",
-    path: path.join( __dirname, "public/js" ),
+    path: path.resolve( __dirname, "public/js" ),
   },
 
   module: {
-    loaders: [
-      { test: [/\.frag$/, /\.vert$/], loaders: 'raw-loader' },
-
+    rules: [
+      { test: [/\.(glsl|frag|vert)$/], use: ['raw-loader', 'glslify-loader'] },
     ]
   }
 }

@@ -1,6 +1,5 @@
-import frag from "./shader.frag"
+import frag from "./1213.frag"
 import vert from "./shader.vert"
-
 window.onload = function(){
   const cvs = document.querySelector('#canvas');
   const ctx = cvs.getContext('webgl');
@@ -23,6 +22,7 @@ window.onload = function(){
   const uuu = {};
   uuu.time = ctx.getUniformLocation(pgm, 'time');
   uuu.resolution = ctx.getUniformLocation(pgm, 'resolution');
+  uuu.mouse = ctx.getUniformLocation(pgm, 'mouse');
   ctx.bindBuffer(ctx.ARRAY_BUFFER, ctx.createBuffer());
   ctx.bufferData(ctx.ARRAY_BUFFER, new Float32Array([-1,1,0,-1,-1,0,1,1,0,1,-1,0]), ctx.STATIC_DRAW);
   const atr = ctx.getAttribLocation(pgm, 'position');
