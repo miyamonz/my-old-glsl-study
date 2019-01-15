@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.26.3",
     "file-loader": "^1.1.5",
     "glsl-easings": "^1.0.0",
     "glsl-noise": "0.0.0",
