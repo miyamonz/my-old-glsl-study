@@ -18,7 +18,8 @@
     "glslify": "^6.1.0",
     "glslify-loader": "^1.0.2",
     "raw-loader": "^0.5.1",
-    "webpack": "^3.7.1"
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
   },
   "dependencies": {
     "vedajs": "^0.1.2"
